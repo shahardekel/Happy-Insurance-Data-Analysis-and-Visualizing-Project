@@ -38,6 +38,6 @@ The following steps will be done-
  ![image](https://github.com/shahardekel/Happy-Insurance-Data-Analysis-and-Visualizing-Project/assets/69580046/dd4752ef-ced7-470e-ab3b-56dec38dbf2d)
 
 11. create KPI dynamic measures using Tabular Editor external tool for PBI
-    <img width="500" alt="image" src="https://github.com/shahardekel/Happy-Insurance-Data-Analysis-and-Visualizing-Project/assets/69580046/8c912a5a-1974-4f78-91bf-dc049b1052b6">
+    <img width="784" alt="image" src="https://github.com/shahardekel/Happy-Insurance-Data-Analysis-and-Visualizing-Project/assets/69580046/8c912a5a-1974-4f78-91bf-dc049b1052b6">
 
 
