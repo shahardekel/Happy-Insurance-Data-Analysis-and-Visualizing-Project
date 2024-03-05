@@ -1,0 +1,14 @@
+﻿EVALUATE 
+TOPN (
+    1,
+    SUMMARIZE (
+        DimProducts,
+        DimProducts[ProductName],
+        DimProducts[DivisionName],
+        DimProducts[CountProductOrders],
+        "TotalSales", CALCULATE (
+            SUM ( FactSales[Revenue] )
+        )
+    ),
+    [TotalSales], ASC
+)

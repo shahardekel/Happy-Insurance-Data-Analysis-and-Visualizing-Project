@@ -1,0 +1,26 @@
+﻿DEFINE 
+    VAR RevenueByYearAndCustomer =
+        SUMMARIZE(
+            DimOrders,
+            DimOrders[Year],
+            'DimOrders'[CustomerName],
+            "TotalRevenue", SUM(DimOrders[SumRevenue])
+        )
+    VAR HighestRevenueByYear =
+        ADDCOLUMNS(
+            SUMMARIZE(
+                RevenueByYearAndCustomer,
+                DimOrders[Year],
+                "HighestRevenue", MAXX(FILTER(RevenueByYearAndCustomer, DimOrders[Year] = EARLIER(DimOrders[Year])), [TotalRevenue])
+            ),
+            "Customer", CALCULATE(
+                FIRSTNONBLANK('DimOrders'[CustomerName], 1),
+                FILTER(
+                    RevenueByYearAndCustomer,
+                    DimOrders[Year] = EARLIER(DimOrders[Year]) &&
+                    [TotalRevenue] = EARLIER([HighestRevenue])
+                )
+            )
+        )
+EVALUATE
+HighestRevenueByYear

@@ -1,0 +1,26 @@
+﻿DEFINE 
+    VAR RevenueByYearAndCountry =
+        SUMMARIZE(
+            DimOrders,
+            DimOrders[Year],
+            DimOrders[Country],
+            "TotalRevenue", SUM(DimOrders[SumRevenue])
+        )
+    VAR LowestRevenueByYear =
+        ADDCOLUMNS(
+            SUMMARIZE(
+                RevenueByYearAndCountry,
+                DimOrders[Year],
+                "LowestRevenue", MINX(FILTER(RevenueByYearAndCountry, DimOrders[Year] = EARLIER(DimOrders[Year])), [TotalRevenue])
+            ),
+            "Country", CALCULATE(
+                FIRSTNONBLANK(DimOrders[Country], 1),
+                FILTER(
+                    RevenueByYearAndCountry,
+                    DimOrders[Year] = EARLIER(DimOrders[Year]) &&
+                    [TotalRevenue] = EARLIER([LowestRevenue])
+                )
+            )
+        )
+EVALUATE
+LowestRevenueByYear
